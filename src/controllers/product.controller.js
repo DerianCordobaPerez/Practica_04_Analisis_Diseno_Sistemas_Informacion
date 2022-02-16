@@ -41,6 +41,7 @@ export const find = async (req, res) => {
     return res.redirect('/products')
   }
 
+  req.flash('success_message', 'Producto encontrado')
   res.redirect(`/products/${product.slug}/show`)
 }
 
