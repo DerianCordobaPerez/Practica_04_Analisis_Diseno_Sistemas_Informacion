@@ -8,6 +8,7 @@ import methodOverride from 'method-override'
 import expressFlash from 'express-flash'
 import { engine } from 'express-handlebars'
 import { join } from 'path'
+import homeRoutes from './routes/home.routes'
 import { PORT } from './config/constants'
 
 // Initialize the server
@@ -38,5 +39,8 @@ app.use(methodOverride('_method'))
 app.use(expressFlash())
 app.use(xframe('SAMEORIGIN'))
 app.use(xssProtection(true))
+
+// Routes
+app.use(homeRoutes)
 
 export default app
