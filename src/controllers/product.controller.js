@@ -32,6 +32,18 @@ export const store = async (req, res) => {
   res.redirect('/products')
 }
 
+export const find = async (req, res) => {
+  const { slug } = req.body
+  const product = await Product.findOne({ slug }).lean()
+  
+  if(!product) {
+    req.flash('error_message', 'Producto no encontrado')
+    return res.redirect('/products')
+  }
+
+  res.redirect(`/products/${product.slug}/show`)
+}
+
 export const show = async (req, res) => {
   const { slug } = req.params
   const product = await Product.findOne({ slug }).lean()
