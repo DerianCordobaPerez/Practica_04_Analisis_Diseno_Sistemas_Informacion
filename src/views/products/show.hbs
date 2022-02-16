@@ -1,0 +1,27 @@
+<div class="row mt-4">
+    <div class="col-md-6">
+        {{>carousel images=product.images}}
+    </div>
+
+    <div class="col-md-6 bg-dark shadow p-4 info-product">
+        <h1 class="text-white">
+            <span class="fw-bold">* Nombre: </span>
+            {{product.name}}
+        </h1>
+        <h2 class="text-white">
+            <span class="fw-bold">* Precio: </span>
+            {{product.price}}
+        </h2>
+        <h2 class="text-white">
+            <span class="fw-bold">* Cantidad: </span>
+            {{product.quantity}}
+        </h2>
+        
+        <h2 class="text-white">
+            <span class="fw-bold">* Descripción: </span>
+        </h2>
+        <div class="form-group">
+            <textarea class="form-control" cols="30" rows="5" readonly>{{product.description}}</textarea>
+        </div>
+    </div>
+</div>

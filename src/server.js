@@ -14,6 +14,7 @@ import { join } from 'path'
 import MongoStore from 'connect-mongo'
 import headers from './middlewares/headers'
 import homeRoutes from './routes/home.routes'
+import productRoutes from './routes/product.routes'
 import requestFlash from './middlewares/request-flash'
 import error404 from './middlewares/error-404'
 import { PORT, SECRET_SESSION, MONGODB_URL } from './config/constants'
@@ -58,6 +59,7 @@ app.use(requestFlash)
 
 // Routes
 app.use(homeRoutes)
+app.use(productRoutes)
 app.use(error404)
 
 export default app

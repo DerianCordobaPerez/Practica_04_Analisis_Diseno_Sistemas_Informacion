@@ -1,0 +1,45 @@
+<div class="row mb-4">
+    <div class="col-md-2">
+        <div class="d-flex justify-content-start">
+            <a href="/products/create" class="w-100 btn btn-success text-white shadow">
+                Agregar
+            </a>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-bordered table-hover align-middle shadow">
+        <tr>
+            <th>Slug</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+
+        {{#each products}}
+        <tr>
+            <td>{{this.slug}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.quantity}}</td>
+            <td>
+                <form action="/products/{{this.slug}}/destroy?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <a href="/products/{{this.slug}}/show" class="btn btn-info">Visualizar</a>
+                    <a href="/products/{{this.slug}}/edit" class="btn btn-primary">Editar</a>
+                    <button type="submit" class="btn btn-danger">
+                        Eliminar
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{else}}
+        <tr>
+            <td colspan="6">
+                <h3 class="text-center">No hay productos</h3>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

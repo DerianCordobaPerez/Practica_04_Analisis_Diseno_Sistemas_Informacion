@@ -2,3 +2,4 @@ node_modules
 .env
 dist
 coverages
+src/**/*.[.png, .jpg, .gif, .svg, .jpeg]

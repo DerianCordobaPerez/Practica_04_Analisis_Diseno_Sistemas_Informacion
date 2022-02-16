@@ -29,7 +29,7 @@ export const store = async (req, res) => {
   })
   
   req.flash('success_message', 'Producto creado correctamente')
-  res.redirect('/')
+  res.redirect('/products')
 }
 
 export const show = async (req, res) => {
@@ -53,6 +53,14 @@ export const edit = async (req, res) => {
 export const update = async (req, res) => {
   const { slug } = req.params
   await Product.findOneAndUpdate({ slug }, req.body)
+
+  if(req.files.length > 0) {
+    const images = req.files.map(({ filename }) => filename)
+    await Product.findOneAndUpdate({ slug }, {
+      $push: { images: { $each: images } }
+    })
+  }
+
   req.flash('success_message', 'Producto editado correctamente')
   res.redirect('/products')
 }
