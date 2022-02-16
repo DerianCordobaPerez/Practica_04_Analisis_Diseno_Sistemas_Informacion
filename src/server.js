@@ -1,4 +1,5 @@
 import './config/env'
+import './database'
 import Express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -7,11 +8,15 @@ import compression from 'compression'
 import methodOverride from 'method-override'
 import expressFlash from 'express-flash'
 import session from 'express-session'
+import flash from 'connect-flash'
 import { engine } from 'express-handlebars'
 import { join } from 'path'
+import MongoStore from 'connect-mongo'
 import headers from './middlewares/headers'
 import homeRoutes from './routes/home.routes'
-import { PORT, SESSION_SECRET } from './config/constants'
+import requestFlash from './middlewares/request-flash'
+import error404 from './middlewares/error-404'
+import { PORT, SECRET_SESSION, MONGODB_URL } from './config/constants'
 
 // Initialize the server
 const app = Express()
@@ -42,13 +47,17 @@ app.use(xframe('SAMEORIGIN'))
 app.use(xssProtection(true))
 app.use(
   session({
-    secret: SESSION_SECRET,
+    secret: SECRET_SESSION,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ mongoUrl: MONGODB_URL })
   })
 )
+app.use(flash())
+app.use(requestFlash)
 
 // Routes
 app.use(homeRoutes)
+app.use(error404)
 
 export default app
